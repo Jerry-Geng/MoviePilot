@@ -488,6 +488,21 @@ class ChainBase(metaclass=ABCMeta):
         :return: 成功或失败
         """
         note_list = [media.to_dict() for media in medias]
+        logger.info(f"发送媒体消息：channel={message.channel}，"
+                    f"title={message.title}, "
+                    f"text={message.text}，"
+                    f"userid={message.userid}")
+        # 发送媒体事件
+        self.eventmanager.send_event(etype=EventType.MediaMessage,
+                                     data={
+                                         "channel": message.channel,
+                                         "type": message.mtype,
+                                         "title": message.title,
+                                         "text": message.text,
+                                         "image": message.image,
+                                         "userid": message.userid,
+                                         "medias": note_list
+                                     })
         self.messagehelper.put(message, role="user", note=note_list)
         self.messageoper.add(channel=message.channel, mtype=message.mtype,
                              title=message.title, text=message.text,

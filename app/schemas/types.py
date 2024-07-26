@@ -50,6 +50,8 @@ class EventType(Enum):
     SubscribeComplete = "subscribe.complete"
     # 系统错误
     SystemError = "system.error"
+    # 发送媒体消息通知
+    MediaMessage = "media.message"
 
 
 # 系统配置Key字典
